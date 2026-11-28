@@ -5,11 +5,14 @@ import { Request, Response } from 'express';
 import { join } from 'node:path';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
-
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+import { ProfileModule } from './vizitka/profile/profile.module.js';
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
+      graphiql: false,
+      plugins: [ApolloServerPluginLandingPageLocalDefault()],
       context: ({ req, res }: { req: Request; res: Response }) => ({
         req,
         res,
@@ -23,6 +26,7 @@ import { AppService } from './app.service.js';
         outputAs: 'class',
       },
     }),
+    ProfileModule,
   ],
   controllers: [AppController],
   providers: [AppService],

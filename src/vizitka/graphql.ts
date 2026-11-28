@@ -8,21 +8,35 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export class Author {
-    id: number;
-    firstName?: Nullable<string>;
-    lastName?: Nullable<string>;
-    posts?: Nullable<Nullable<Post>[]>;
+export class Profile {
+    id: string;
+    name: string;
+    description?: Nullable<string>;
+    links?: Nullable<string[]>;
+    skills?: Nullable<Skill[]>;
+    experience?: Nullable<Experience[]>;
+    projects?: Nullable<Project[]>;
 }
 
-export class Post {
-    id: number;
-    title: string;
-    votes?: Nullable<number>;
+export class Skill {
+    id: string;
+    name: string;
+}
+
+export class Experience {
+    id: string;
+    company: string;
+    position: string;
+}
+
+export class Project {
+    id: string;
+    name: string;
+    link: string;
 }
 
 export abstract class IQuery {
-    abstract author(id: number): Nullable<Author> | Promise<Nullable<Author>>;
+    abstract profile(profileId: string): Nullable<Profile> | Promise<Nullable<Profile>>;
 }
 
 type Nullable<T> = T | null;
